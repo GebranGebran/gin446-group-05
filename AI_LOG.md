@@ -1,21 +1,29 @@
 # AI Development Log
 
 ## Interaction 1
-Task: Create the 3-column CSS Grid card layout and Flexbox nav
-AI tool: Claude
-My prompt: (paste what you actually typed to me)
-AI recommendation: Use display: grid with repeat(3, 1fr) and gap on .cards, and display: flex on nav
-My decision: ACCEPT
-Why: (one sentence, e.g. repeat(3, 1fr) gives three equal columns)
-Verification: Opened in the browser and checked all six cards show
-What I learned: (2 sentences in your own words)
+
+Task:
+Build the project homepage: header, Flexbox navigation, six cards in a 3-column CSS Grid with gap, footer, and basic readable styling.
+
+AI tool:
+Claude (Anthropic), in the Claude chat app.
+
+AI recommendation:
+Use display: flex on nav; display: grid on .cards with grid-template-columns: repeat(3, 1fr) and gap instead of margins; add padding, borders and colors on .card for readability.
+
+My decision:
+ACCEPT
 
 ## Interaction 2
-Task: Make the grid responsive (3/2/1 columns)
-AI tool: Claude
-My prompt: (paste what you actually typed)
-AI recommendation: Add two media queries changing grid-template-columns
-My decision: ACCEPT
-Why: (one sentence)
-Verification: Tested at 1440, 768 and 375 px in DevTools
-What I learned: (2 sentences in your own words)
+
+Task:
+Make the card grid responsive: 3 columns on desktop, 2 on tablet, 1 on mobile, with no horizontal scrolling.
+
+AI tool:
+Claude (Anthropic), in the Claude chat app.
+
+AI recommendation:
+Add two media queries: at max-width 1023px set grid-template-columns: repeat(2, 1fr), and at max-width 599px set it to 1fr; let the nav wrap on small screens. Later, I also asked for better page styling and Claude gave a fuller stylesheet with the same breakpoints.
+
+My decision:
+ACCEPT
