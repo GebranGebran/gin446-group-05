@@ -9,7 +9,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header container">
-    <a class="brand" href="#home">CampusConnect - Group 05 - Version 02</a>
+    <a class="brand" href="#home">CampusConnect - Group 05 - Version 03</a>
     <nav aria-label="Main navigation">
       <ul class="nav-list">
         <li><a href="#home">Home</a></li>
@@ -24,13 +24,13 @@
       <div class="hero-copy">
         <p class="eyebrow">GIN446 · Group 05 · Milestone 01</p>
         <h1 id="hero-title">Campus services in one place</h1>
-        <p>Find a study space, join a workshop, or discover student support. This homepage is our first project milestone.</p>
+        <p>CampusConnect helps USEK students find the support they need during the semester: a quiet place to study, a hands-on workshop, academic guidance, or advice on internships and careers.</p>
         <a class="button" href="#services">Browse services</a>
       </div>
       <aside class="project-summary" aria-labelledby="summary-title">
         <h2 id="summary-title">Project status</h2>
-        <p>Session 1: semantic HTML and Flexbox layout.</p>
-        <p>Future sessions will add filtering, real data, and a back end.</p>
+        <p>Milestone 01: semantic HTML homepage with a responsive Flexbox layout, published on Render.</p>
+        <p>Next milestones: CSS Grid and media queries, JavaScript filtering, an HTTP API, and a Flask back end with a database.</p>
       </aside>
     </section>
     <section id="services" aria-labelledby="services-title">
@@ -38,32 +38,45 @@
       <div class="cards">
         <article class="card">
           <p class="tag">Study</p><h3>Study spaces</h3>
-          <p>Discover quiet places to work.</p>
+          <p>Find quiet places to read and revise between classes.</p>
           <a class="button" href="#study-details">Read study details</a>
         </article>
         <article class="card">
           <p class="tag">Skills</p><h3>Engineering workshops</h3>
-          <p>Explore hands-on sessions covering electronics, programming, and design. Workshops help students develop practical skills together.</p>
+          <p>Join hands-on sessions covering electronics, programming, and design. Workshops let students practise new tools together and apply what they learn in lectures to small, practical projects.</p>
           <a class="button" href="#workshop-details">Read workshop details</a>
         </article>
         <article class="card">
           <p class="tag">Support</p><h3>Student support</h3>
-          <p>Find academic guidance and support for your next project.</p>
+          <p>Get academic guidance and mentoring for your courses and your next project.</p>
           <a class="button" href="#support-details">Read support details</a>
+        </article>
+        <article class="card">
+          <p class="tag">Careers</p><h3>Career and internship guidance for engineering students</h3>
+          <p>Prepare your CV, look for internships, and get ready for interviews.</p>
+          <a class="button" href="#career-details">Read career details</a>
         </article>
       </div>
     </section>
     <section class="details" aria-labelledby="details-title">
       <h2 id="details-title">Service information</h2>
-      <h3 id="study-details">Study spaces</h3><p>Example service: library reading rooms. Replace with verified group content.</p>
-      <h3 id="workshop-details">Engineering workshops</h3><p>Example service: introductory web programming workshops.</p>
-      <h3 id="support-details">Student support</h3><p>Example service: project mentoring. Booking will be a later milestone.</p>
+      <h3 id="study-details">Study spaces</h3>
+      <p>Reading rooms and quiet areas where students can work alone or in small groups. A later milestone will list locations and opening hours from real data.</p>
+      <h3 id="workshop-details">Engineering workshops</h3>
+      <p>Short practical sessions, such as introductory web programming, electronics, and design tools. Registration will be added in a later milestone.</p>
+      <h3 id="support-details">Student support</h3>
+      <p>Academic advising and project mentoring for students who need help planning their courses or their work. Booking will be added in a later milestone.</p>
+      <h3 id="career-details">Career and internship guidance</h3>
+      <p>Help with CVs, internship searches, and interview preparation for engineering students. This service was added to test how the card layout handles a long title.</p>
     </section>
     <section id="team" aria-labelledby="team-title">
       <h2 id="team-title">Our team</h2>
-      <p>Replace this text with first names or approved display names and each member's contribution.</p>
+      <ul>
+        <li><strong>Gebran</strong> (GebranGebran): created the GitHub repository and the Render site, built the CSS Grid lab, and wrote the first AI log entries.</li>
+        <li><strong>Joe</strong> (web446): moved the site into the <code>public/</code> folder, implemented the Flexbox layout (header, navigation, hero, cards, footer), and updated the content and documentation.</li>
+      </ul>
     </section>
   </main>
-  <footer class="site-footer container"><p>CampusConnect · Group 05</p><p>Built with HTML and CSS</p></footer>
+  <footer class="site-footer container"><p>CampusConnect · Group 05 · GIN446</p><p>Built with HTML and CSS Flexbox</p></footer>
 </body>
 </html>
