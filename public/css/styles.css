@@ -23,8 +23,22 @@ section { margin-bottom: 2.5rem; scroll-margin-top: 1rem; }
 .skip-link:focus { top: .5rem; }
 
 /* TODO 1: Header: display:flex; align-items:center; flex-wrap:wrap; gap:1.5rem. */
+.site-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
 /* TODO 2: Push the last header link right using auto margin on nav. */
+.site-header nav {
+  margin-left: auto;
+}
 /* TODO 3: Make .nav-list flex, wrapping, with gap:1rem. */
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
 /* TODO 4: Hero: wrapping flex row, align-items:center, gap:2rem.
    .hero-copy: flex:2 1 28rem; .project-summary: flex:1 1 16rem.
    Set min-width:0 on both hero items. */
