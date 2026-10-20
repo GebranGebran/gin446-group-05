@@ -78,3 +78,9 @@ section { margin-bottom: 2.5rem; scroll-margin-top: 1rem; }
   align-self: flex-start;
 }
 /* TODO 8: Footer: wrapping flex row; space-between; gap:1rem. */
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
