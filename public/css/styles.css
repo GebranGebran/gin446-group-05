@@ -42,6 +42,22 @@ section { margin-bottom: 2.5rem; scroll-margin-top: 1rem; }
 /* TODO 4: Hero: wrapping flex row, align-items:center, gap:2rem.
    .hero-copy: flex:2 1 28rem; .project-summary: flex:1 1 16rem.
    Set min-width:0 on both hero items. */
+  .hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-copy {
+  flex: 2 1 28rem;
+  min-width: 0;
+}
+
+.project-summary {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
 /* TODO 5: Cards: wrapping flex container, gap:1.25rem, stretch alignment. */
 /* TODO 6: Each card: flex:1 1 16rem; min-width:0; nested flex column. */
 /* TODO 7: Pin card links with margin-top:auto; align-self:flex-start. */
