@@ -203,4 +203,4 @@ Verification:
 Tested at 375, 768 and 1280 px: no horizontal scrolling; four equal-height cards on desktop, 2 + 2 at 768 px, one per row at 375 px; every navigation and card link reaches an existing section.
 
 What I learned:
-: When I replaced the page text, I learned that I had to keep the same classes and ids in the HTML, because the CSS and the links depend on those names and not on the text. I also learned that the homepage file must be named exactly index.html, otherwise the server will not show it.
+When I replaced the page text, I learned that I had to keep the same classes and ids in the HTML, because the CSS and the links depend on those names and not on the text. I also learned that the homepage file must be named exactly index.html, otherwise the server will not show it.
