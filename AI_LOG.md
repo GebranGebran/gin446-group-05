@@ -86,7 +86,7 @@ In DevTools at 375 px on `lab-grid/index.html`, the `@media (max-width: 599px)` 
 
 What I learned:
 I learned that I should always pay attention to details and think what the end user might use as a device and what screen type is using (phone, desktop, etc.), because the front end of any website is necessary for the user to feel free while using it; it should be simple and user friendly on any device.
-TODO-JOE: My prediction was wrong because I didn’t add up the fixed widths: 3 × 300px + 2 × 30px = 960px, which is much wider than a 375px phone, so the cards overflow and the page scrolls sideways.
+: My prediction was wrong because I didn’t add up the fixed widths: 3 × 300px + 2 × 30px = 960px, which is much wider than a 375px phone, so the cards overflow and the page scrolls sideways.
 
 ---
 
@@ -119,7 +119,7 @@ Verification:
 Compared with our own code: the homepage navigation (`.nav-list`) uses Flexbox, and the six-card lab area uses Grid. On the Flexbox homepage at 768 px, the wrapped third card stretched across the whole second row, while the Grid lab kept equal columns.
 
 What I learned:
-TODO-JOE:At first I chose Grid for the navigation and Flexbox for the gallery, but I had them backwards.
+I learned that Flexbox is better when items are in one row, like a menu, and Grid is better when items must line up in rows and columns, like a card gallery.
 
 ---
 
@@ -147,7 +147,7 @@ Verification:
 Our Grid lab uses `repeat(3, 1fr)` with `gap` and media queries; checked at 375, 768 and desktop widths with no horizontal scrolling.
 
 What I learned:
-TODO-JOE: I learned that fixed margins like 630px only work on desktop screen size, and on a 375px phone the card goes off the screen. It also breaks when I add a card. A better way is to use margin-left: auto with gap, so the browser places the cards at every width.
+I learned that fixed margins like 630px only work on desktop screen size, and on a 375px phone the card goes off the screen. It also breaks when I add a card. A better way is to use display: grid with gap, so the browser places the cards at every width.
 
 ---
 
@@ -175,7 +175,7 @@ Verification:
 Live Server at 1280 px: header in one row, hero in two regions, four cards of equal height with buttons aligned at the bottom. At 375 px: header items and cards wrap, no horizontal scrolling. Checked the committed file on GitHub.
 
 What I learned:
-TODO-JOE: The rule I remember best is margin-left: auto on the nav.
+The rule I remember best is margin-left: auto on the nav.Before I added it, the menu was right next to the logo; after, the menu and button moved to the right, because the auto margin takes all the free space. I also learned that flex only affects the direct children of the container, which is why the links needed their own flex container on .nav-list.
 
 ---
 
@@ -203,4 +203,4 @@ Verification:
 Tested at 375, 768 and 1280 px: no horizontal scrolling; four equal-height cards on desktop, 2 + 2 at 768 px, one per row at 375 px; every navigation and card link reaches an existing section.
 
 What I learned:
-TODO-JOE: When I replaced the page text, I learned that I had to keep the same classes and ids in the HTML, because the CSS and the links depend on those names and not on the text. I also learned that the homepage file must be named exactly index.html, otherwise the server will not show it.
+: When I replaced the page text, I learned that I had to keep the same classes and ids in the HTML, because the CSS and the links depend on those names and not on the text. I also learned that the homepage file must be named exactly index.html, otherwise the server will not show it.
