@@ -23,12 +23,64 @@ section { margin-bottom: 2.5rem; scroll-margin-top: 1rem; }
 .skip-link:focus { top: .5rem; }
 
 /* TODO 1: Header: display:flex; align-items:center; flex-wrap:wrap; gap:1.5rem. */
+.site-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
 /* TODO 2: Push the last header link right using auto margin on nav. */
+.site-header nav {
+  margin-left: auto;
+}
 /* TODO 3: Make .nav-list flex, wrapping, with gap:1rem. */
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
 /* TODO 4: Hero: wrapping flex row, align-items:center, gap:2rem.
    .hero-copy: flex:2 1 28rem; .project-summary: flex:1 1 16rem.
    Set min-width:0 on both hero items. */
+  .hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-copy {
+  flex: 2 1 28rem;
+  min-width: 0;
+}
+
+.project-summary {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
 /* TODO 5: Cards: wrapping flex container, gap:1.25rem, stretch alignment. */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: stretch;
+}
 /* TODO 6: Each card: flex:1 1 16rem; min-width:0; nested flex column. */
+.card {
+  flex: 1 1 16rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
 /* TODO 7: Pin card links with margin-top:auto; align-self:flex-start. */
+.card .button {
+  margin-top: auto;
+  align-self: flex-start;
+}
 /* TODO 8: Footer: wrapping flex row; space-between; gap:1rem. */
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
