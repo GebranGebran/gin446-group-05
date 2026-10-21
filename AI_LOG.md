@@ -14,7 +14,7 @@ AI tool:
 Claude (Anthropic), in the Claude chat app.
 
 My prompt:
-TODO-GEBRAN: paste the exact prompt you used.
+I’m doing a CSS Grid lab for my web programming course. Help me build a simple homepage with a header, a navigation bar using Flexbox, six cards arranged in 3 columns using CSS Grid with gap (not margins), and a footer. Add basic styling so the cards are easy to read (padding, borders, colors). Please explain why each property is used.
 
 AI recommendation:
 Use display: flex on nav; display: grid on .cards with grid-template-columns: repeat(3, 1fr) and gap instead of margins; add padding, borders and colors on .card for readability.
@@ -23,13 +23,13 @@ My decision:
 ACCEPT
 
 Why:
-TODO-GEBRAN: technical reason.
+The navigation is a single row of links, which is one-dimensional, so Flexbox is the right tool. The cards need rows and columns at the same time, which is two-dimensional, so Grid fits better. repeat(3, 1fr) divides the width into three equal shares, and gap adds the same space between all cards without setting margins on each card.
 
 Verification:
-TODO-GEBRAN: how you tested it (e.g. Live Server, six cards visible in three equal columns).
+Opened lab-grid/index.html with Live Server on a desktop window: the nav links were in one row and the six cards appeared in three equal columns (two rows of three) with even spacing.
 
 What I learned:
-TODO-GEBRAN: 2–4 sentences in your own words.
+I learned the difference between Flexbox and Grid: Flexbox lays items out in one direction, while Grid controls rows and columns together. I also learned that the fr unit shares the available space, and that gap is cleaner than adding margins to every card.
 
 ---
 
@@ -42,7 +42,7 @@ AI tool:
 Claude (Anthropic), in the Claude chat app.
 
 My prompt:
-TODO-GEBRAN: paste the exact prompt you used.
+Now make my card grid responsive: 3 columns on desktop, 2 columns on tablet, and 1 column on mobile. There should be no horizontal scrolling on small screens, and the navigation should wrap if it doesn’t fit. Explain what each media query does.
 
 AI recommendation:
 Add two media queries: at max-width 1023px set grid-template-columns: repeat(2, 1fr), and at max-width 599px set it to 1fr; let the nav wrap on small screens. Later, I also asked for better page styling and Claude gave a fuller stylesheet with the same breakpoints.
@@ -51,13 +51,13 @@ My decision:
 ACCEPT
 
 Why:
-TODO-GEBRAN: technical reason.
+Media queries let the same page change its layout depending on screen width. Below 1023px there is not enough room for three readable cards, so the grid switches to two columns, and below 599px it switches to one. Because the columns use fr instead of fixed pixels, they shrink with the screen, so nothing goes past the edge and there is no horizontal scrolling.
 
 Verification:
-TODO-GEBRAN: how you tested it (e.g. DevTools at about 1440, 768 and 375 px).
+In Chrome DevTools (device toolbar) I checked about 1440px (3 columns), 768px (2 columns) and 375px (1 column). At every width there was no horizontal scrollbar and the nav wrapped instead of overflowing.
 
 What I learned:
-TODO-GEBRAN: 2–4 sentences in your own words.
+I learned how @media (max-width: …) works: the rules inside only apply when the screen is narrower than that width. Designing for desktop, tablet and phone means choosing breakpoints where the layout stops looking good, not just picking random numbers.
 
 ---
 
