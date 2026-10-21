@@ -38,28 +38,28 @@ Automatic deploys on commits to `main`. No Start Command. No environment variabl
 - [x] Hero uses wrapping and meaningful flex bases
 - [x] At least three cards with different text lengths (four, including a long-title card)
 - [x] Equal card heights within each line and bottom-aligned links
-- [ ] Tested at 375, 768, and 1280 CSS pixels, with no horizontal overflow
-- [ ] Keyboard focus visible and links reach real section targets
-- [ ] Each member contributes at least one merged commit
-- [ ] A merged change appears at the same Render URL
+- [x] Tested at 375, 768, and 1280 CSS pixels, with no horizontal overflow
+- [x] Keyboard focus visible and links reach real section targets
+- [x] Each member contributes at least one merged commit
+- [x] A merged change appears at the same Render URL
 
 ## Test log
 | Check | Result and correction |
 |---|---|
-| 375px viewport and no horizontal scrolling | TODO |
-| 768px viewport and readable wrapping | TODO |
-| 1280px viewport and aligned card links | TODO |
-| 200% zoom and readable content | TODO |
-| Tab navigation and visible focus | TODO |
-| All navigation and card targets work | TODO |
-| Merged visible change appears on Render | TODO |
+| 375px viewport and no horizontal scrolling | Pass: header and cards wrap, one card per row, no sideways scroll |
+| 768px viewport and readable wrapping | Pass: hero side by side at 768px (stacks at 767px), cards 2 + 2 |
+| 1280px viewport and aligned card links | Pass: four equal-height cards, buttons level |
+| 200% zoom and readable content | Pass: readable, no horizontal scroll |
+| Tab navigation and visible focus | Pass: skip link first, brown focus outline on every link |
+| All navigation and card targets work | Pass: every #link reaches an existing section |
+| Merged visible change appears on Render | Pass: live URL shows "Version 03" after PR #1/#2 merge and redeploy (21 Oct 2026) |
 
 ## Progress log
 | Session | Work completed | Member contributions | Evidence |
 |---|---|---|---|
 | 01 | Repository and Render Static Site created; first homepage version deployed ("Version 02") | Gebran: created the repository, uploaded the starter, connected Render | Commits 97ea753–c14e565, live URL |
 | 04 (Grid lab) | Manual 3-column grid, responsive 3/2/1 columns, AI_LOG.md | Gebran: grid lab and first two AI interactions | Commits d97fa63–f15ca2c |
-| 01 (Flexbox milestone) | Site moved to `public/`; Flexbox TODO 1–8; real content, team section, long-title fourth card ("Version 03"); lab-grid stray CSS removed; AI_LOG completed | Joe: branch `feature/flexbox-homepage`, pull request reviewed and merged by Gebran | Commits 73486eb–d55e00c, PR link: TODO |
+| 01 (Flexbox milestone) | Site moved to `public/`; Flexbox TODO 1–8; real content, team section, long-title fourth card ("Version 03"); lab-grid stray CSS removed; AI_LOG completed | Joe: branch `feature/flexbox-homepage`, pull request reviewed and merged by Gebran | Commits 73486eb–d55e00c, PR #1 (merged by Gebran, 0815d7e), PR #2 (b8c64a8) |
 
 ## Next milestones
 Grid and media queries; JavaScript filtering; HTTP API; Flask CRUD; database;
