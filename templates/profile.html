@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block title %}Profile – {{ data.get('fullname') }}{% endblock %}
+{% block content %}
+<h1>Profile received
+  {% if validated %}<span class="badge ok">validated</span>{% else %}<span class="badge warn">NOT validated</span>{% endif %}</h1>
+<div class="profile-card" style="border-left-color: {{ data.get('project_color') or '#336699' }}">
+  <h2>{{ data.get('fullname') or '(no name)' }}</h2>
+  <table>
+    <tr><th>Student ID</th><td>{{ data.get('student_id') }}</td></tr>
+    <tr><th>E-mail</th><td>{{ data.get('email') }}</td></tr>
+    <tr><th>Phone</th><td>{{ data.get('phone') or '–' }}</td></tr>
+    <tr><th>Birth date</th><td>{{ data.get('birthdate') or '–' }}</td></tr>
+    <tr><th>Major</th><td>{{ data.get('major') }}</td></tr>
+    <tr><th>GPA</th><td>{{ data.get('gpa') }}</td></tr>
+    <tr><th>Credits</th><td>{{ data.get('credits') }}</td></tr>
+    <tr><th>Graduation</th><td>{{ data.get('graduation') }}</td></tr>
+    <tr><th>Skills</th><td>{{ data.get('skills', []) | join(', ') or '–' }}</td></tr>
+    <tr><th>Software</th><td>{{ data.get('software', []) | join(', ') or '–' }}</td></tr>
+    <tr><th>Project</th><td>{{ data.get('project_title') }} (team of {{ data.get('team_size') }})</td></tr>
+    <tr><th>Description</th><td>{{ data.get('description') or '–' }}</td></tr>
+    <tr><th>Meeting</th><td>{{ data.get('meeting_time') or '–' }}</td></tr>
+  </table>
+</div>
+<p><a href="{{ url_for('profile_validated') }}">← back to the validated form</a></p>
+{% endblock %}

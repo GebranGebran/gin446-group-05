@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bypass test</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top"><a class="brand" href="/">GIN446 · Student Profile</a><nav><a href="/profile">Old form</a><a href="/profile-validated">Validated form</a></nav></header>
+  <main>
+    <h1>Bypass test – posting junk with JavaScript</h1>
+    <p class="lead">This page never shows the form: it builds the request itself with <code>FormData</code> and <code>fetch()</code>. HTML attributes such as <code>required</code> or <code>pattern</code> cannot stop it.</p>
+    <div class="junk">
+      <strong>Data sent</strong>
+      <pre id="sent"></pre>
+      <button id="old" type="button">POST to /submit-profile (old)</button>
+      <button id="new" type="button">POST to /profile-validated (new)</button>
+    </div>
+    <div class="result">
+      <p>Response: <span id="status" class="status">–</span></p>
+      <iframe id="page" title="Page returned by the server"></iframe>
+    </div>
+  </main>
+  <script src="bypass.js"></script>
+</body>
+</html>

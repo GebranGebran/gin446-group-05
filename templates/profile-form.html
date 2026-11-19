@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block title %}Profile – old form{% endblock %}
+{% block content %}
+<h1>Engineering Student Profile <span class="badge warn">old version · no server check</span></h1>
+<p class="lead">The browser checks this form (required, pattern, min, max)… but the server accepts <strong>anything</strong>.</p>
+
+<form class="profile" method="post" action="/submit-profile">
+  <fieldset>
+    <legend>Identity</legend>
+    <label>Student ID <input name="student_id" required pattern="\d{9}" placeholder="202312345"></label>
+    <label>Full name <input name="fullname" required minlength="3" maxlength="60"></label>
+    <label>University e-mail <input type="email" name="email" required placeholder="name@usek.edu.lb"></label>
+    <label>Phone <input type="tel" name="phone" placeholder="+961 3 123 456"></label>
+    <label>Birth date <input type="date" name="birthdate"></label>
+  </fieldset>
+  <fieldset>
+    <legend>Studies</legend>
+    <label>Major
+      <select name="major" required>
+        <option value="">– choose –</option>
+        {% for key, label in majors.items() %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+      </select></label>
+    <label>GPA (40–100) <input type="number" name="gpa" required min="40" max="100" step="0.01"></label>
+    <label>Credits (0–148) <input type="number" name="credits" required min="0" max="148"></label>
+    <div class="group">Graduation term
+      {% for key, label in terms.items() %}<label class="inline"><input type="radio" name="graduation" value="{{ key }}" required> {{ label }}</label>{% endfor %}
+    </div>
+    <div class="group">Skills
+      {% for key, label in skills.items() %}<label class="inline"><input type="checkbox" name="skills" value="{{ key }}"> {{ label }}</label>{% endfor %}
+    </div>
+    <label>Software
+      <select name="software" multiple size="3">
+        {% for key, label in software.items() %}<option value="{{ key }}">{{ label }}</option>{% endfor %}
+      </select></label>
+  </fieldset>
+  <fieldset>
+    <legend>Project</legend>
+    <label>Project title <input name="project_title" required maxlength="120"></label>
+    <label>Description <textarea name="description" maxlength="1000" rows="3"></textarea></label>
+    <label>Team size (1–4) <input type="number" name="team_size" required min="1" max="4"></label>
+    <label>Project colour <input type="color" name="project_color" value="#336699"></label>
+    <label>Weekly meeting (08:00–18:00) <input type="time" name="meeting_time" min="08:00" max="18:00"></label>
+    <label class="inline"><input type="checkbox" name="confirmation" value="yes" required> I confirm that this information is correct.</label>
+  </fieldset>
+  <button type="submit">Submit profile</button>
+</form>
+{% endblock %}

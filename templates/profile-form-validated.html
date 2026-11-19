@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% block title %}Profile – validated{% endblock %}
+
+{# err(name): prints the server message for one field, or nothing #}
+{% macro err(name) -%}
+  {% if errors.get(name) %}<span class="error">{{ errors[name] }}</span>{% endif %}
+{%- endmacro %}
+{# bad(name): adds the CSS class "invalid" to a field that has an error #}
+{% macro bad(name) -%}{% if errors.get(name) %} invalid{% endif %}{%- endmacro %}
+
+{% block content %}
+<h1>Engineering Student Profile <span class="badge ok">validated on the server</span></h1>
+{% if errors %}
+  <div class="summary" role="alert"><strong>{{ errors | length }} problem(s) found.</strong> Correct the fields in red and submit again.</div>
+{% endif %}
+<p class="lead">Add <code>?nocheck=1</code> to the URL to switch off the browser checks and test the server alone.</p>
+
+<form class="profile" method="post" action="/profile-validated{% if request.args.get('nocheck') %}?nocheck=1{% endif %}" {% if request.args.get('nocheck') %}novalidate{% endif %}>
+  <fieldset>
+    <legend>Identity</legend>
+    <label class="{{ bad('student_id') }}">Student ID
+      <input name="student_id" required pattern="\d{9}" placeholder="202312345" value="{{ values.get('student_id', '') }}">
+      {{ err('student_id') }}</label>
+    <label class="{{ bad('fullname') }}">Full name
+      <input name="fullname" required minlength="3" maxlength="60" value="{{ values.get('fullname', '') }}">
+      {{ err('fullname') }}</label>
+    <label class="{{ bad('email') }}">University e-mail
+      <input type="email" name="email" required placeholder="name@usek.edu.lb" value="{{ values.get('email', '') }}">
+      {{ err('email') }}</label>
+    <label>Phone
+      <input type="tel" name="phone" placeholder="+961 3 123 456"></label>
+    <label>Birth date
+      <input type="date" name="birthdate"></label>
+  </fieldset>
+  <fieldset>
+    <legend>Studies</legend>
+    {# TODO 5 (Task 5, in class): for fullname, email, major and gpa, copy what was done for student_id:
+         class="{{ bad('name') }}" on the label, value="{{ values.get('name', '') }}" and {{ err('name') }}.
+       For the <select>: add selected when values.get('major') == key.
+       At home: do the same for every other field (checked / selected for radios, checkboxes, multi-select). #}
+    <label class="{{ bad('major') }}">Major
+      <select name="major" required>
+        <option value="">– choose –</option>
+        {% for key, label in majors.items() %}
+          <option value="{{ key }}" {% if values.get('major') == key %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      {{ err('major') }}</label>
+    <label class="{{ bad('gpa') }}">GPA (40–100)
+      <input type="number" name="gpa" required min="40" max="100" step="0.01" value="{{ values.get('gpa', '') }}">
+      {{ err('gpa') }}</label>
+    <label>Credits (0–148)
+      <input type="number" name="credits" required min="0" max="148"></label>
+    <div class="group">Graduation term
+      {% for key, label in terms.items() %}
+        <label class="inline"><input type="radio" name="graduation" value="{{ key }}" required> {{ label }}</label>
+      {% endfor %}</div>
+    <div class="group">Skills
+      {% for key, label in skills.items() %}
+        <label class="inline"><input type="checkbox" name="skills" value="{{ key }}"> {{ label }}</label>
+      {% endfor %}</div>
+    <label>Software
+      <select name="software" multiple size="3">
+        {% for key, label in software.items() %}
+          <option value="{{ key }}">{{ label }}</option>
+        {% endfor %}
+      </select></label>
+  </fieldset>
+  <fieldset>
+    <legend>Project</legend>
+    <label>Project title
+      <input name="project_title" required maxlength="120"></label>
+    <label>Description
+      <textarea name="description" maxlength="1000" rows="3"></textarea></label>
+    <label>Team size (1–4)
+      <input type="number" name="team_size" required min="1" max="4"></label>
+    <label>Project colour
+      <input type="color" name="project_color" value="#336699"></label>
+    <label>Weekly meeting (08:00–18:00)
+      <input type="time" name="meeting_time" min="08:00" max="18:00"></label>
+    <label class="inline"><input type="checkbox" name="confirmation" value="yes" required> I confirm that this information is correct.</label>
+  </fieldset>
+  <button type="submit">Submit profile</button>
+</form>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='precheck.js') }}"></script>
+{% endblock %}

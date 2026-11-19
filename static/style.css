@@ -1,0 +1,52 @@
+/* GIN446 – Chapter 9 lab */
+:root { --navy: #1b1e3f; --blue: #4451c8; --teal: #00747a; --orange: #e8822a; --red: #b3261e; --bg: #f5f6fb; --line: #d5d9ec; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, "Segoe UI", Arial, sans-serif; color: var(--navy); background: var(--bg); line-height: 1.45; }
+.top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; padding: .8rem 1.5rem; background: var(--navy); }
+.top a { color: #fff; text-decoration: none; margin-left: 1rem; }
+.top .brand { font-weight: 700; margin-left: 0; }
+main { max-width: 860px; margin: 1.5rem auto; padding: 0 1rem; }
+h1 { font-size: 1.6rem; }
+.lead { color: #5f6486; }
+code { background: #eef1fb; padding: 0 .3rem; border-radius: 4px; }
+.badge { font-size: .75rem; color: #fff; padding: .2rem .55rem; border-radius: 99px; vertical-align: middle; }
+.badge.ok { background: var(--teal); color: #fff; }
+.badge.warn { background: var(--orange); color: #fff; }
+.ok { color: var(--teal); font-weight: 600; }
+.todo { color: var(--orange); font-weight: 600; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 1rem; color: inherit; text-decoration: none; }
+.card:hover { border-color: var(--blue); }
+.card h2 { font-size: 1.1rem; margin: 0 0 .3rem; color: var(--blue); }
+
+/* form */
+.profile fieldset { background: #fff; border: 1px solid var(--line); border-radius: 10px; margin: 0 0 1rem; padding: .8rem 1.2rem 1rem; }
+.profile legend { font-weight: 700; color: var(--blue); padding: 0 .4rem; }
+.profile label, .profile .group { display: block; margin: .6rem 0; font-weight: 600; }
+.profile label.inline { display: inline-block; font-weight: 400; margin: .3rem 1rem .3rem 0; }
+.profile input:not([type=checkbox]):not([type=radio]):not([type=color]), .profile select, .profile textarea {
+  display: block; width: 100%; margin-top: .25rem; padding: .45rem .6rem; font: inherit; font-weight: 400; border: 1px solid #b9bfdc; border-radius: 6px; }
+.profile button { background: var(--blue); color: #fff; border: 0; border-radius: 8px; padding: .7rem 1.6rem; font: inherit; font-weight: 600; cursor: pointer; }
+.profile button:hover { background: var(--navy); }
+
+/* errors (server and JavaScript)
+   TODO (Task 5 / Part B): style .error (red, small, under the field), .invalid input/select/textarea
+   (red border, light red background) and .summary (the box at the top of the form). */
+.error { color: #b3261e; }
+
+/* profile page */
+.profile-card { background: #fff; border: 1px solid var(--line); border-left: 8px solid #336699; border-radius: 10px; padding: 1rem 1.4rem; }
+.profile-card table { border-collapse: collapse; width: 100%; }
+.profile-card th { text-align: left; width: 30%; color: #5f6486; font-weight: 600; }
+.profile-card th, .profile-card td { padding: .35rem .3rem; border-bottom: 1px solid #eef1fb; vertical-align: top; }
+
+/* bypass page */
+.junk { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 1rem; }
+.junk pre { background: var(--navy); color: #d6d9ea; padding: .8rem; border-radius: 8px; max-height: 190px; overflow: auto; white-space: pre-wrap; word-break: break-all; font-size: .8rem; }
+.junk button { background: var(--blue); color: #fff; border: 0; border-radius: 8px; padding: .55rem 1rem; font: inherit; cursor: pointer; margin: .2rem .4rem .2rem 0; }
+.junk button:hover { background: var(--navy); }
+.result { margin-top: 1rem; }
+.status { font-weight: 700; }
+.status.s200 { color: var(--orange); }
+.status.s400 { color: var(--teal); }
+iframe { width: 100%; height: 360px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }

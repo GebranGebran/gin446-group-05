@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Engineering Student Profile – server side</h1>
+<p class="lead">Today the profile form is checked by <strong>Python</strong> on the server, not only by the browser.</p>
+<ul class="work">
+  {% for item in weekly_work %}
+    <li>Week {{ item.week }}: {{ item.title }}
+      {% if item.done %}<span class="ok">done</span>{% else %}<span class="todo">to do</span>{% endif %}</li>
+  {% endfor %}
+</ul>
+<div class="cards">
+  <a class="card" href="{{ url_for('profile_form') }}"><h2>1 · Old form</h2><p>POST /submit-profile – accepts anything.</p></a>
+  <a class="card" href="{{ url_for('static', filename='bypass.html') }}"><h2>2 · Bypass test</h2><p>JavaScript posts junk data with fetch().</p></a>
+  <a class="card" href="{{ url_for('profile_validated') }}"><h2>3 · Validated form</h2><p>POST /profile-validated – checked in Python.</p></a>
+</div>
+{% endblock %}
