@@ -3,15 +3,28 @@
 
 {# err(name): prints the server message for one field, or nothing #}
 {% macro err(name) -%}
-  {% if errors.get(name) %}<span class="error">{{ errors[name] }}</span>{% endif %}
+  {% if errors.get(name) %}<span class="error" id="{{ name }}-error">{{ errors[name] }}</span>{% endif %}
 {%- endmacro %}
 {# bad(name): adds the CSS class "invalid" to a field that has an error #}
 {% macro bad(name) -%}{% if errors.get(name) %} invalid{% endif %}{%- endmacro %}
 
 {% block content %}
+{# labels used in the error summary (bonus B+1) #}
+{% set LABELS = {"student_id": "Student ID", "fullname": "Full name", "email": "E-mail", "phone": "Phone",
+                 "birthdate": "Birth date", "major": "Major", "gpa": "GPA", "credits": "Credits",
+                 "graduation": "Graduation term", "skills": "Skills", "software": "Software",
+                 "project_title": "Project title", "description": "Description", "team_size": "Team size",
+                 "project_color": "Project colour", "meeting_time": "Weekly meeting", "confirmation": "Confirmation"} %}
 <h1>Engineering Student Profile <span class="badge ok">validated on the server</span></h1>
 {% if errors %}
-  <div class="summary" role="alert"><strong>{{ errors | length }} problem(s) found.</strong> Correct the fields in red and submit again.</div>
+  <div class="summary" role="alert" tabindex="-1" id="summary">
+    <strong>{{ errors | length }} problem(s) found.</strong> Correct the fields in red and submit again.
+    <ul>
+      {% for name, label in LABELS.items() if errors.get(name) %}   {# same order as the form #}
+        <li><a href="#{{ name }}">{{ label }}</a>: {{ errors[name] }}</li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endif %}
 <p class="lead">Add <code>?nocheck=1</code> to the URL to switch off the browser checks and test the server alone.</p>
 
@@ -19,27 +32,25 @@
   <fieldset>
     <legend>Identity</legend>
     <label class="{{ bad('student_id') }}">Student ID
-      <input name="student_id" required pattern="\d{9}" placeholder="202312345" value="{{ values.get('student_id', '') }}">
+      <input id="student_id" name="student_id" required pattern="\d{9}" placeholder="202312345" value="{{ values.get('student_id', '') }}">
       {{ err('student_id') }}</label>
     <label class="{{ bad('fullname') }}">Full name
-      <input name="fullname" required minlength="3" maxlength="60" value="{{ values.get('fullname', '') }}">
+      <input id="fullname" name="fullname" required minlength="3" maxlength="60" value="{{ values.get('fullname', '') }}">
       {{ err('fullname') }}</label>
     <label class="{{ bad('email') }}">University e-mail
-      <input type="email" name="email" required placeholder="name@usek.edu.lb" value="{{ values.get('email', '') }}">
+      <input id="email" type="email" name="email" required placeholder="name@usek.edu.lb" value="{{ values.get('email', '') }}">
       {{ err('email') }}</label>
-    <label>Phone
-      <input type="tel" name="phone" placeholder="+961 3 123 456"></label>
-    <label>Birth date
-      <input type="date" name="birthdate"></label>
+    <label class="{{ bad('phone') }}">Phone
+      <input id="phone" type="tel" name="phone" placeholder="+961 3 123 456" value="{{ values.get('phone', '') }}">
+      {{ err('phone') }}</label>
+    <label class="{{ bad('birthdate') }}">Birth date
+      <input id="birthdate" type="date" name="birthdate" value="{{ values.get('birthdate', '') }}">
+      {{ err('birthdate') }}</label>
   </fieldset>
   <fieldset>
     <legend>Studies</legend>
-    {# TODO 5 (Task 5, in class): for fullname, email, major and gpa, copy what was done for student_id:
-         class="{{ bad('name') }}" on the label, value="{{ values.get('name', '') }}" and {{ err('name') }}.
-       For the <select>: add selected when values.get('major') == key.
-       At home: do the same for every other field (checked / selected for radios, checkboxes, multi-select). #}
     <label class="{{ bad('major') }}">Major
-      <select name="major" required>
+      <select id="major" name="major" required>
         <option value="">– choose –</option>
         {% for key, label in majors.items() %}
           <option value="{{ key }}" {% if values.get('major') == key %}selected{% endif %}>{{ label }}</option>
@@ -47,40 +58,57 @@
       </select>
       {{ err('major') }}</label>
     <label class="{{ bad('gpa') }}">GPA (40–100)
-      <input type="number" name="gpa" required min="40" max="100" step="0.01" value="{{ values.get('gpa', '') }}">
+      <input id="gpa" type="number" name="gpa" required min="40" max="100" step="0.01" value="{{ values.get('gpa', '') }}">
       {{ err('gpa') }}</label>
-    <label>Credits (0–148)
-      <input type="number" name="credits" required min="0" max="148"></label>
-    <div class="group">Graduation term
+    <label class="{{ bad('credits') }}">Credits (0–148)
+      <input id="credits" type="number" name="credits" required min="0" max="148" value="{{ values.get('credits', '') }}">
+      {{ err('credits') }}</label>
+    <div class="group{{ bad('graduation') }}" id="graduation">Graduation term
       {% for key, label in terms.items() %}
-        <label class="inline"><input type="radio" name="graduation" value="{{ key }}" required> {{ label }}</label>
-      {% endfor %}</div>
-    <div class="group">Skills
+        <label class="inline"><input type="radio" name="graduation" value="{{ key }}" required
+          {% if values.get('graduation') == key %}checked{% endif %}> {{ label }}</label>
+      {% endfor %}
+      {{ err('graduation') }}</div>
+    <div class="group{{ bad('skills') }}" id="skills">Skills
       {% for key, label in skills.items() %}
-        <label class="inline"><input type="checkbox" name="skills" value="{{ key }}"> {{ label }}</label>
-      {% endfor %}</div>
-    <label>Software
-      <select name="software" multiple size="3">
+        <label class="inline"><input type="checkbox" name="skills" value="{{ key }}"
+          {% if key in values.get('skills', []) %}checked{% endif %}> {{ label }}</label>
+      {% endfor %}
+      {{ err('skills') }}</div>
+    <label class="{{ bad('software') }}">Software
+      <select id="software" name="software" multiple size="3">
         {% for key, label in software.items() %}
-          <option value="{{ key }}">{{ label }}</option>
+          <option value="{{ key }}" {% if key in values.get('software', []) %}selected{% endif %}>{{ label }}</option>
         {% endfor %}
-      </select></label>
+      </select>
+      {{ err('software') }}</label>
   </fieldset>
   <fieldset>
     <legend>Project</legend>
-    <label>Project title
-      <input name="project_title" required maxlength="120"></label>
-    <label>Description
-      <textarea name="description" maxlength="1000" rows="3"></textarea></label>
-    <label>Team size (1–4)
-      <input type="number" name="team_size" required min="1" max="4"></label>
-    <label>Project colour
-      <input type="color" name="project_color" value="#336699"></label>
-    <label>Weekly meeting (08:00–18:00)
-      <input type="time" name="meeting_time" min="08:00" max="18:00"></label>
-    <label class="inline"><input type="checkbox" name="confirmation" value="yes" required> I confirm that this information is correct.</label>
+    <label class="{{ bad('project_title') }}">Project title
+      <input id="project_title" name="project_title" required maxlength="120" value="{{ values.get('project_title', '') }}">
+      {{ err('project_title') }}</label>
+    <label class="{{ bad('description') }}">Description
+      <textarea id="description" name="description" maxlength="1000" rows="3">{{ values.get('description', '') }}</textarea>
+      {{ err('description') }}</label>
+    <label class="{{ bad('team_size') }}">Team size (1–4)
+      <input id="team_size" type="number" name="team_size" required min="1" max="4" value="{{ values.get('team_size', '') }}">
+      {{ err('team_size') }}</label>
+    <label class="{{ bad('project_color') }}">Project colour
+      {# an <input type="color"> cannot show "red": refill only a valid colour, the message explains the rest #}
+      <input id="project_color" type="color" name="project_color"
+             value="{{ values.get('project_color') if not errors.get('project_color') and values.get('project_color') else '#336699' }}">
+      {{ err('project_color') }}</label>
+    <label class="{{ bad('meeting_time') }}">Weekly meeting (08:00–18:00)
+      <input id="meeting_time" type="time" name="meeting_time" min="08:00" max="18:00" value="{{ values.get('meeting_time', '') }}">
+      {{ err('meeting_time') }}</label>
+    <label class="inline{{ bad('confirmation') }}"><input id="confirmation" type="checkbox" name="confirmation" value="yes" required
+      {% if values.get('confirmation') %}checked{% endif %}> I confirm that this information is correct.
+      {{ err('confirmation') }}</label>
   </fieldset>
   <button type="submit">Submit profile</button>
+  <button type="button" id="ask-server" class="secondary">Ask the server first (JSON API)</button>
+  <span id="api-result" aria-live="polite"></span>
 </form>
 {% endblock %}
 {% block scripts %}

@@ -103,17 +103,80 @@ def validate_profile(form, today=None):
         errors["gpa"] = "GPA must be a number between 40 and 100."
     cleaned["gpa"] = gpa if gpa is not None else gpa_text   # float when valid, raw text to refill otherwise
 
-    # ===== AT HOME (groups) – see the lab guide, Part B =====
-    # TODO 4.5  phone (optional)        PHONE_RE
-    # TODO 4.6  birthdate (optional)    parse_date(), not in the future, age_on() between 15 and 100
-    # TODO 4.9  credits                 to_int(), 0 to 148
-    # TODO 4.10 graduation              in GRADUATION_TERMS
-    # TODO 4.11 skills / software       form.getlist(name); every value in SKILLS / SOFTWARE
-    # TODO 4.12 project_title <= MAX_TITLE characters, description <= MAX_DESCRIPTION
-    # TODO 4.13 team_size               to_int(), 1 to 4
-    # TODO 4.14 project_color           default "#336699", COLOR_RE, store in lower case
-    # TODO 4.15 meeting_time (optional) TIME_RE, minutes < 60, between "08:00" and "18:00"
-    # TODO 4.16 confirmation            cleaned["confirmation"] = (text("confirmation") == "yes")
+    # ===== AT HOME (groups) – Part B =====
+    # 4.5 phone (optional): only checked when something was typed
+    phone = text("phone")
+    if phone and not PHONE_RE.match(phone):
+        errors["phone"] = "Phone must be a Lebanese number, e.g. +961 3 123 456."
+    cleaned["phone"] = phone
+
+    # 4.6 birth date (optional): a real date, not in the future, age 15 to 100
+    birth_text = text("birthdate")
+    if birth_text:
+        birth = parse_date(birth_text)
+        if birth is None:
+            errors["birthdate"] = "Birth date must be a valid date (YYYY-MM-DD)."
+        elif birth > today:
+            errors["birthdate"] = "Birth date cannot be in the future."
+        elif not 15 <= age_on(birth, today) <= 100:
+            errors["birthdate"] = "Age must be between 15 and 100."
+    cleaned["birthdate"] = birth_text
+
+    # 4.9 credits: a whole number 0..148, stored as an int
+    credits_text = text("credits")
+    credits = to_int(credits_text)
+    if credits_text and (credits is None or not 0 <= credits <= 148):
+        errors["credits"] = "Credits must be a whole number between 0 and 148."
+    cleaned["credits"] = credits if credits is not None else credits_text
+
+    # 4.10 graduation term: allow-list
+    graduation = text("graduation")
+    if graduation and graduation not in GRADUATION_TERMS:
+        errors["graduation"] = "Choose spring, summer or fall."
+    cleaned["graduation"] = graduation
+
+    # 4.11 skills / software: several values with the same name -> getlist(); each one in the allow-list
+    for name, allowed in (("skills", SKILLS), ("software", SOFTWARE)):
+        chosen = [v.strip() for v in form.getlist(name)]
+        if any(v not in allowed for v in chosen):
+            errors[name] = "Unknown value selected."
+        cleaned[name] = chosen
+
+    # 4.12 lengths (the maxlength attribute can be removed in DevTools, so we count again here)
+    project_title = text("project_title")
+    if len(project_title) > MAX_TITLE:
+        errors["project_title"] = f"Title: at most {MAX_TITLE} characters."
+    cleaned["project_title"] = project_title
+
+    description = text("description")
+    if len(description) > MAX_DESCRIPTION:
+        errors["description"] = f"Description: at most {MAX_DESCRIPTION} characters."
+    cleaned["description"] = description
+
+    # 4.13 team size: whole number 1..4
+    team_text = text("team_size")
+    team_size = to_int(team_text)
+    if team_text and (team_size is None or not 1 <= team_size <= 4):
+        errors["team_size"] = "Team size must be 1, 2, 3 or 4."
+    cleaned["team_size"] = team_size if team_size is not None else team_text
+
+    # 4.14 project colour: empty -> default, otherwise #rrggbb, stored in lower case
+    color = text("project_color") or "#336699"
+    if not COLOR_RE.match(color):
+        errors["project_color"] = "Colour must look like #336699."
+    cleaned["project_color"] = color.lower()
+
+    # 4.15 meeting time (optional): HH:MM, real minutes, between 08:00 and 18:00
+    meeting = text("meeting_time")
+    if meeting and not (TIME_RE.match(meeting) and int(meeting[3:]) < 60
+                        and "08:00" <= meeting <= "18:00"):
+        errors["meeting_time"] = "Meeting time must be between 08:00 and 18:00."
+    cleaned["meeting_time"] = meeting
+
+    # 4.16 confirmation: a real boolean (the required check above already gives the message)
+    cleaned["confirmation"] = text("confirmation") == "yes"
+    if not cleaned["confirmation"] and "confirmation" not in errors:   # e.g. confirmation=no sent with curl
+        errors["confirmation"] = "This field is required."
 
     # keep the raw text of any field not cleaned above, so the form can be refilled
     for name in form:

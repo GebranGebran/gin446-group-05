@@ -118,6 +118,26 @@ def test_confirmation():
     assert "confirmation" in errors_of(confirmation=None)
 
 
+# ---------- our own tests (Part B) ----------
+def test_boundaries_are_accepted_and_values_normalised():
+    """Valid case: the exact limits must pass, and the cleaned values must be normalised."""
+    errors, cleaned = validate_profile(form(gpa="40", credits="148", team_size="4", meeting_time="08:00",
+                                            project_color="#AABBCC", phone="+96171123456",
+                                            birthdate="2011-11-16"), today=TODAY)   # exactly 15 today
+    assert errors == {}, errors
+    assert cleaned["project_color"] == "#aabbcc"
+    assert cleaned["team_size"] == 4 and cleaned["credits"] == 148
+    assert "meeting_time" not in errors_of(meeting_time="18:00")
+
+
+def test_tampered_hidden_values_are_rejected():
+    """Invalid case: values a normal form can never send (found with curl / DevTools)."""
+    assert "confirmation" in errors_of(confirmation="no")               # checkbox value changed
+    assert "birthdate" in errors_of(birthdate="2011-11-17")             # one day short of 15
+    assert "credits" in errors_of(credits=" 1e2 ")                      # 100 in float notation
+    assert "fullname" in errors_of(fullname="Robert'); DROP TABLE students;--")
+
+
 if __name__ == "__main__":
     tests = [(n, f) for n, f in globals().items() if n.startswith("test_")]
     failed = 0

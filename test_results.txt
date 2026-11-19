@@ -1,0 +1,18 @@
+PASS  test_valid_form_has_no_error
+PASS  test_required_fields
+PASS  test_student_id
+PASS  test_fullname
+PASS  test_email
+PASS  test_major_allow_list
+PASS  test_gpa
+PASS  test_phone
+PASS  test_birthdate
+PASS  test_credits_and_team_size
+PASS  test_graduation_skills_software
+PASS  test_lengths
+PASS  test_color_and_meeting_time
+PASS  test_confirmation
+PASS  test_boundaries_are_accepted_and_values_normalised
+PASS  test_tampered_hidden_values_are_rejected
+
+16 of 16 tests passed

@@ -1,0 +1,58 @@
+#1  All fields valid
+    -> HTTP 200, 0 message(s), badge 'validated': True
+
+#2  Bypass junk (same data as bypass.js) -> new route
+    -> HTTP 400, 12 message(s)
+       student_id: Student ID must be exactly 9 digits.
+       fullname: Name: 3 to 60 letters, spaces, ' or - only.
+       email: Use your university e-mail (…@usek.edu.lb).
+       major: Choose a major from the list.
+       gpa: GPA must be a number between 40 and 100.
+       credits: Credits must be a whole number between 0 and 148.
+       graduation: Choose spring, summer or fall.
+       skills: Unknown value selected.
+       project_title: Title: at most 120 characters.
+       team_size: Team size must be 1, 2, 3 or 4.
+       project_color: Colour must look like #336699.
+       meeting_time: Meeting time must be between 08:00 and 18:00.
+
+#3  Student ID 20231, lea@gmail.com, GPA 120
+    -> HTTP 400, 3 message(s), other values kept: True
+       student_id: Student ID must be exactly 9 digits.
+       email: Use your university e-mail (…@usek.edu.lb).
+       gpa: GPA must be a number between 40 and 100.
+
+#4  E-mail LEA@USEK.EDU.LB
+    -> HTTP 200, 0 message(s), shown as lea@usek.edu.lb: True
+
+#5a  Birth date tomorrow (2026-11-20)
+    -> HTTP 400, 1 message(s)
+       birthdate: Birth date cannot be in the future.
+
+#5b  Birth date 2020-01-01
+    -> HTTP 400, 1 message(s)
+       birthdate: Age must be between 15 and 100.
+
+#6  Skills html + lock-picking
+    -> HTTP 400, 1 message(s)
+       skills: Unknown value selected.
+
+#7  Meeting time 07:30
+    -> HTTP 400, 1 message(s)
+       meeting_time: Meeting time must be between 08:00 and 18:00.
+
+#7  Meeting time 18:30
+    -> HTTP 400, 1 message(s)
+       meeting_time: Meeting time must be between 08:00 and 18:00.
+
+#7  Meeting time 08:00
+    -> HTTP 200, 0 message(s)
+
+#7  Meeting time 18:00
+    -> HTTP 200, 0 message(s)
+
+#8  Colour left empty
+    -> HTTP 200, 0 message(s), stored as #336699: True
+
+#API  POST /api/validate (valid) -> HTTP 200, 0 error(s)
+#API  POST /api/validate (junk) -> HTTP 400, 12 error(s)

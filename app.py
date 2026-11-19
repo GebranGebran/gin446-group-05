@@ -3,7 +3,7 @@
 Run (inside the activated .venv):   flask --app app run --debug
 Then open http://127.0.0.1:5000/
 """
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 from validators import validate_profile
 
 app = Flask(__name__)
@@ -23,7 +23,7 @@ def home():
     weekly_work = [
         {"week": 4, "title": "Engineering Student Profile (HTML form)", "done": True},
         {"week": 7, "title": "Live Quiz with fetch()", "done": True},
-        {"week": 8, "title": "Server-side validation (this lab)", "done": False},
+        {"week": 8, "title": "Server-side validation (this lab)", "done": True},
     ]
     return render_template("index.html", weekly_work=weekly_work)
 
@@ -60,6 +60,14 @@ def profile_validated():
 
     # 3. no error: show the profile with the "validated" badge (200 OK)
     return render_template("profile.html", data=cleaned, validated=True)
+
+# ---------- bonus B+2: the same rules as a small JSON API ----------
+@app.route("/api/validate", methods=["POST"])
+def api_validate():
+    """Returns {field: message}; 200 when the form is valid, 400 otherwise (used by precheck.js)."""
+    errors, _ = validate_profile(request.form)
+    return jsonify(errors), (400 if errors else 200)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
